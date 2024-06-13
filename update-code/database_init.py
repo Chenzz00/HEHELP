@@ -1,3 +1,4 @@
+
 import mysql.connector
 from mysql.connector import errorcode
 
@@ -255,6 +256,11 @@ class Database:
                                     ""
                                     
                                     ")")
+                self.mydb.commit()
+
+                self.sql_query = "INSERT INTO Permissions (user_id, Can_search_products, Can_Void_Product, Can_Access_Account_Manager, Can_Access_Manager_Tools, Can_Access_masterlist, Can_Access_Void_list, Can_Access_history_purchase, Can_Access_create_accounts, Can_Access_delete_accounts, is_blacklisted) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)"
+                self.value = ("00000000" ,1, 1, 1, 1, 1, 1, 1, 1, 1, 0)
+                self.mycursor.execute(self.sql_query, (self.value))
                 self.mydb.commit()
                 return "Table successfully created"
             except mysql.connector.Error as err:
